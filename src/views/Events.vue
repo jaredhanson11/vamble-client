@@ -1,8 +1,8 @@
 <template>
-  <div>About</div>
+  <div>Events</div>
 </template>
 <script>
 export default {
-  name: 'Home'
+  name: 'Events'
 }
 </script>

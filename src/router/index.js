@@ -4,22 +4,58 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'Home',
+    isNavItem: false,
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: '/esports',
+    name: 'Esports',
+    isNavItem: true,
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue')
+      import(/* webpackChunkName: "esports" */ '../views/Esports.vue')
+  },
+  {
+    path: '/events',
+    name: 'Events',
+    isNavItem: true,
+    component: () =>
+      import(/* webpackChunkName: "events" */ '../views/Events.vue')
+  },
+  {
+    path: '/events/:id',
+    name: 'Event',
+    isNavItem: false,
+    component: () =>
+      import(/* webpackChunkName: "events" */ '../views/Event.vue')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    isNavItem: false,
+    component: () =>
+      import(/* webpackChunkName: "events" */ '../views/Login.vue')
+  },
+  {
+    path: '/signup',
+    name: 'Signup',
+    isNavItem: false,
+    component: () =>
+      import(/* webpackChunkName: "events" */ '../views/Signup.vue')
   }
 ]
+
+export function getRoute(name) {
+  const route = routes.filter(
+    item => item.name.toLowerCase() == name.toLowerCase()
+  )[0]
+  if (route) {
+    return route.path
+  }
+}
 
 const router = new VueRouter({
   mode: 'history',
