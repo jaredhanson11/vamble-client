@@ -19,6 +19,25 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, userJson) {
       Vue.set(state, 'user', userJson)
+    },
+    setEsports(state, esportsJson) {
+      var esportsDict = {}
+      for (var i in esportsJson) {
+        var _esport = esportsJson[i]
+        esportsDict[_esport.id] = _esport
+      }
+      Vue.set(state, 'esports', esportsDict)
+    },
+    setEvents(state, eventsJson) {
+      var eventsDict = {}
+      for (var i in eventsJson) {
+        var _event = eventsJson[i]
+        eventsDict[_event.id] = _event
+      }
+      Vue.set(state, 'events', eventsDict)
+    },
+    setEvent(state, eventJson) {
+      Vue.set(state.events, eventJson.id, eventJson)
     }
   },
   actions: {
@@ -33,6 +52,21 @@ export default new Vuex.Store({
         store.commit('setUser', response.data)
         router.push(getRoute('home'))
       })
+    },
+    getEsports(store) {
+      API.axios.get(API.apiRoutes.ESPORTS()).then(response => {
+        store.commit('setEsports', response.data)
+      })
+    },
+    getEvents(store) {
+      API.axios.get(API.apiRoutes.EVENTS()).then(response => {
+        store.commit('setEvents', response.data)
+      })
+    },
+    getEvent(store, eventId) {
+      API.axios.get(API.apiRoutes.EVENT(eventId)).then(response => {
+        store.commit('setEvent', response.data)
+      })
     }
   },
   getters: {
@@ -42,8 +76,14 @@ export default new Vuex.Store({
     esports(state) {
       return state.esports
     },
+    esportsList(state) {
+      return Object.values(state.esports)
+    },
     events(state) {
       return state.events
+    },
+    eventsList(state) {
+      return Object.values(state.events)
     },
     bets(state) {
       return state.bets

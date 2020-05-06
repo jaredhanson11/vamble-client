@@ -1,8 +1,12 @@
 <template>
-  <div>Esports</div>
+  <div>
+    <EsportsList />
+  </div>
 </template>
 <script>
+import EsportsList from '@/components/esports/EsportsList'
 export default {
-  name: 'Esports'
+  name: 'Esports',
+  components: { EsportsList }
 }
 </script>
